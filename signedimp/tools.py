@@ -304,10 +304,10 @@ except (IndexError,AttributeError):
             else:
                 app.prepend_code(bscode)
     #  Sign anything that might be an importable zipfile.
-    for nm in os.listdir(appdir):
-        if nm.endswith(".exe") or nm.endswith(".zip"):
-            try:
-
+    # for nm in os.listdir(appdir):
+    for dirname, _, filenames in os.walk(appdir):
+        for nm in filenames:
+            if nm.endswith(".exe") or nm.endswith(".zip"):
                 sign_zipfile(os.path.join(appdir,nm),key,hash=hash)
             except zipfile.BadZipfile:
                 pass
